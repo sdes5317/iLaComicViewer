@@ -3,10 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:iLaComicViewer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <DockPanel LastChildFill="True">
+            <Menu DockPanel.Dock="Top" Height="29"/>
+            <ScrollViewer x:Name="MainScroller" Width="800" RenderTransformOrigin="0.5,0.5" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding DropCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ItemsControl ItemsSource="{Binding ImagePaths}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </DockPanel>
 
     </Grid>
 </Window>
