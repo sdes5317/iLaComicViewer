@@ -12,9 +12,9 @@ using System.Windows.Input;
 
 namespace iLaComicViewer
 {
-    [INotifyPropertyChanged]
-    public partial class ImageLoadViewModel
+    public partial class ImageLoadViewModel: ObservableObject
     {
+
         public ObservableCollection<string> ImagePaths { get; set; }
 
         public ICommand DropCommand { get; private set; }
@@ -22,7 +22,7 @@ namespace iLaComicViewer
         public ImageLoadViewModel()
         {
             ImagePaths = new ObservableCollection<string>();
-            DropCommand = new RelayCommand<DragEventArgs>(OnDrop);
+            DropCommand = new RelayCommand<DragEventArgs>(e => OnDrop(e));
         }
 
         private void OnDrop(DragEventArgs e)
@@ -38,6 +38,21 @@ namespace iLaComicViewer
                         ImagePaths.Add(imagePath);
                     }
                 }
+            }
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                //string[] folderPaths = (string[])e.Data.GetData(DataFormats.FileDrop);
+                //foreach (string folderPath in folderPaths)
+                //{
+                //    string[] imageFiles = Directory.GetFiles(folderPath, "*.jpg");
+                //    foreach (string imagePath in imageFiles)
+                //    {
+                //        ImagePaths.Add(imagePath);
+                //    }
+                //}
             }
         }
     }

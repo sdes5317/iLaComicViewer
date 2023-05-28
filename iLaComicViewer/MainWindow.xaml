@@ -10,16 +10,11 @@
     <Grid>
         <DockPanel LastChildFill="True">
             <Menu DockPanel.Dock="Top" Height="29"/>
-            <ScrollViewer x:Name="MainScroller" Width="800" RenderTransformOrigin="0.5,0.5" >
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding DropCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+            <ScrollViewer x:Name="MainScroller" RenderTransformOrigin="0.5,0.5" AllowDrop="True" Drop="ScrollViewer_FileDrop">
                 <ItemsControl ItemsSource="{Binding ImagePaths}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding}" />
+                            <Image Source="{Binding}" Stretch="Uniform"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

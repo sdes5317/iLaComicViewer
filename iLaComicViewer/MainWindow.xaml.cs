@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,19 +26,33 @@ namespace iLaComicViewer
         {
             InitializeComponent();
             var viewer = FindName(nameof(MainScroller)) as ScrollViewer;
-            viewModel = new ImageLoadViewModel();
-            viewModel.ImagePaths.Add(@"test.JPG");
-            DataContext = viewModel;
+            ViewModel = new ImageLoadViewModel();
+            DataContext = ViewModel;
         }
 
-        public ImageLoadViewModel viewModel { get; }
+        public ImageLoadViewModel ViewModel { get; }
 
-        private void ScrollViewer_DragOver(object sender, DragEventArgs e)
+        private void ScrollViewer_FileDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 e.Effects = DragDropEffects.Copy;
                 e.Handled = true;
+
+                ViewModel.ImagePaths.Clear();
+                var a = e.Data.GetFormats();
+                var paths = (string[])e.Data.GetData("FileDrop", true);
+
+                var isSingleAndIsDirectory = paths.Length == 1 && (File.GetAttributes(paths.First()) & FileAttributes.Directory) > 0;
+                if (isSingleAndIsDirectory)
+                {
+                    paths = Directory.GetFiles(paths.First());
+                }
+
+                foreach (var file in paths)
+                {
+                    ViewModel.ImagePaths.Add(file);
+                }
             }
         }
     }
