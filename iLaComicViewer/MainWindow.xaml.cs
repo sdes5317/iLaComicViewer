@@ -49,10 +49,7 @@ namespace iLaComicViewer
                     paths = Directory.GetFiles(paths.First());
                 }
 
-                foreach (var file in paths)
-                {
-                    ViewModel.ImagePaths.Add(file);
-                }
+                ViewModel.AddImagesAsync(paths);
             }
         }
     }
