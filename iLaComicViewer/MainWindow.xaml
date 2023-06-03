@@ -7,19 +7,16 @@
         xmlns:local="clr-namespace:iLaComicViewer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <DockPanel LastChildFill="True">
-            <Menu DockPanel.Dock="Top" Height="29"/>
-            <ScrollViewer x:Name="MainScroller" RenderTransformOrigin="0.5,0.5" AllowDrop="True" Drop="ScrollViewer_FileDrop">
-                <ItemsControl ItemsSource="{Binding ImagePaths}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding}" Stretch="Uniform"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </DockPanel>
-
-    </Grid>
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top" Height="29"/>
+        <ScrollViewer x:Name="MainScroller" RenderTransformOrigin="0.5,0.5" AllowDrop="True" Drop="ScrollViewer_FileDrop">
+            <ItemsControl ItemsSource="{Binding ImagePaths}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" Stretch="Uniform"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
 </Window>
