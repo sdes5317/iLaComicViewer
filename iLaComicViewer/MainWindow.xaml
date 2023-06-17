@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:ilacomicviewer="clr-namespace:iLaComicViewer" d:DataContext="{d:DesignInstance Type=ilacomicviewer:MainWindow}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="iLa ComicViewer" Height="450" Width="800">
     <DockPanel LastChildFill="True">
         <ToolBar DockPanel.Dock="Top" Height="29">
             <Button Command="{Binding OpenCommand}" Content="Open"/>
