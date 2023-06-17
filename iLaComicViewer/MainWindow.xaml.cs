@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Microsoft.Xaml.Behaviors.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -27,10 +29,30 @@ namespace iLaComicViewer
             InitializeComponent();
             var viewer = FindName(nameof(MainScroller)) as ScrollViewer;
             ViewModel = new ImageLoadViewModel();
-            DataContext = ViewModel;
+            DataContext = this;
         }
 
         public ImageLoadViewModel ViewModel { get; }
+        public ICommand OpenCommand => new ActionCommand(Open);
+
+        private void Open()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true;
+
+            bool? result = openFileDialog.ShowDialog();
+            if (result == true)
+            {
+                var selectedFilePaths = openFileDialog.FileNames;
+
+                ViewModel.ImagePaths.Clear();
+                ViewModel.AddImagesAsync(selectedFilePaths);
+            }
+            else
+            {
+                // Do nothing.
+            }
+        }
 
         private void ScrollViewer_FileDrop(object sender, DragEventArgs e)
         {
@@ -42,12 +64,7 @@ namespace iLaComicViewer
                 ViewModel.ImagePaths.Clear();
                 var a = e.Data.GetFormats();
                 var paths = (string[])e.Data.GetData("FileDrop", true);
-
-                var isSingleAndIsDirectory = paths.Length == 1 && (File.GetAttributes(paths.First()) & FileAttributes.Directory) > 0;
-                if (isSingleAndIsDirectory)
-                {
-                    paths = Directory.GetFiles(paths.First());
-                }
+                paths = PathHelpers.ResolveFolderOrFilePaths(paths);
 
                 ViewModel.AddImagesAsync(paths);
             }

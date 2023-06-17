@@ -2,18 +2,19 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:local="clr-namespace:iLaComicViewer"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:ilacomicviewer="clr-namespace:iLaComicViewer" d:DataContext="{d:DesignInstance Type=ilacomicviewer:MainWindow}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel LastChildFill="True">
-        <Menu DockPanel.Dock="Top" Height="29"/>
+        <ToolBar DockPanel.Dock="Top" Height="29">
+            <Button Command="{Binding OpenCommand}" Content="Open"/>
+        </ToolBar>
         <ScrollViewer x:Name="MainScroller" RenderTransformOrigin="0.5,0.5" AllowDrop="True" Drop="ScrollViewer_FileDrop">
-            <ItemsControl ItemsSource="{Binding ImagePaths}">
+            <ItemsControl ItemsSource="{Binding ViewModel.ImagePaths}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding}" Stretch="Uniform"/>
+                        <Image Source="{Binding}" Stretch="Fill"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
