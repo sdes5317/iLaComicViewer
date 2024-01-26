@@ -46,7 +46,7 @@ namespace iLaComicViewer
                 var selectedFilePaths = openFileDialog.FileNames;
 
                 ViewModel.ImagePaths.Clear();
-                ViewModel.AddImagesAsync(selectedFilePaths);
+                _ = ViewModel.AddImagesAsync(selectedFilePaths);
             }
             else
             {
