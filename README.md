@@ -1,5 +1,5 @@
 # iLaComicViewer
-[English](README.md) [繁體中文](README_zh-TW.md)
+[English](./README.md) [繁體中文](./README.zh-TW.md)
 
 ## Feature
 1. Basic Image Viewing Functionality
