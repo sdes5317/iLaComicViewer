@@ -9,6 +9,9 @@
     <DockPanel LastChildFill="True">
         <ToolBar DockPanel.Dock="Top" Height="29">
             <Button Command="{Binding OpenCommand}" Content="Open"/>
+            <RadioButton IsChecked="True" GroupName="CheckStates" Content="KComicViewer" Width="100"/>
+            <RadioButton IsEnabled="False" IsChecked="False" GroupName="CheckStates" Content="JComicViewer" 
+                         Width="100" ToolTipService.ShowOnDisabled="True"  ToolTip="todo..."/>
         </ToolBar>
         <ScrollViewer x:Name="MainScroller" RenderTransformOrigin="0.5,0.5" AllowDrop="True" Drop="ScrollViewer_FileDrop">
             <ItemsControl ItemsSource="{Binding ViewModel.ImagePaths}">
