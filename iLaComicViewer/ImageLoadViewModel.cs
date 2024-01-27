@@ -22,7 +22,7 @@ namespace iLaComicViewer
         {
             ImagePaths = new ObservableCollection<string>();
         }
-        public async void AddImagesAsync(string[] paths)
+        public async Task AddImagesAsync(string[] paths)
         {
             foreach (var file in paths)
             {
