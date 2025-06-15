@@ -7,20 +7,56 @@
         mc:Ignorable="d"
         Title="iLa ComicViewer" Height="450" Width="800">
     <DockPanel LastChildFill="True">
-        <ToolBar DockPanel.Dock="Top" Height="29">
-            <Button Command="{Binding OpenCommand}" Content="Open"/>
-            <RadioButton IsChecked="True" GroupName="CheckStates" Content="KComicViewer" Width="100"/>
-            <RadioButton IsEnabled="False" IsChecked="False" GroupName="CheckStates" Content="JComicViewer" 
+        <Grid DockPanel.Dock="Top" Height="29">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ToolBar Grid.Column="0">
+                <Button Command="{Binding OpenCommand}" Content="Open"/>
+                <RadioButton IsChecked="True" GroupName="CheckStates" Content="KComicViewer" Width="100"/>
+                <RadioButton IsEnabled="False" IsChecked="False" GroupName="CheckStates" Content="JComicViewer" 
                          Width="100" ToolTipService.ShowOnDisabled="True"  ToolTip="todo..."/>
-        </ToolBar>
-        <ScrollViewer x:Name="MainScroller" RenderTransformOrigin="0.5,0.5" AllowDrop="True" Drop="ScrollViewer_FileDrop">
-            <ItemsControl ItemsSource="{Binding ViewModel.ImagePaths}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Image Source="{Binding}" Stretch="Fill"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+            </ToolBar>
+            <ToolBar Grid.Column="1" DockPanel.Dock="Top" Height="29">
+                <CheckBox Content="Preview" HorizontalAlignment="Right"/>
+            </ToolBar>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0"  x:Name="MainScroller" 
+                          RenderTransformOrigin="0.5,0.5" 
+                          AllowDrop="True" 
+                          Drop="ScrollViewer_FileDrop">
+                <ItemsControl ItemsSource="{Binding ViewModel.ImagePaths}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel VirtualizingPanel.IsVirtualizing="True" 
+                                        VirtualizingPanel.VirtualizationMode="Recycling"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding}" Stretch="Fill"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+            <ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ListBox ItemsSource="{Binding ViewModel.ImagePaths}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- 可以根據需要設置圖片大小和其他屬性 -->
+                            <Image Source="{Binding}" Stretch="UniformToFill" Height="100"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
     </DockPanel>
 </Window>
